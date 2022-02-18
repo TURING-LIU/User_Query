@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.user_query.mvc.MVCActivity;
+import com.example.user_query.mvp.MVPActivity;
 import com.example.user_query.normal.NormalActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MVCActivity.class);
+                Intent intent = new Intent(MainActivity.this, MVPActivity.class);
                 MainActivity.this.startActivity(intent);
             }
         });

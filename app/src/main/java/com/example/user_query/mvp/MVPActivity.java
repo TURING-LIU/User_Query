@@ -1,4 +1,4 @@
-package com.example.user_query.mvc;
+package com.example.user_query.mvp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,13 +9,14 @@ import android.widget.TextView;
 
 import com.example.user_query.R;
 import com.example.user_query.bean.Account;
-import com.example.user_query.callBack.MCallBack;
+import com.example.user_query.mvc.MVCModel;
 
-public class MVCActivity extends AppCompatActivity implements View.OnClickListener {
+public class MVPActivity extends AppCompatActivity implements View.OnClickListener, IMVPView {
 
     private TextView mTvResult;
     private EditText mEtAccount;
     private MVCModel mMvcModel;
+    private MVPPresenter mMvpPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class MVCActivity extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_normal);
         initView();
         mMvcModel = new MVCModel();
+        mMvpPresenter = new MVPPresenter(this);
     }
 
     private void initView(){
@@ -33,32 +35,23 @@ public class MVCActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        mMvcModel.getAccountData(getUserInput(), new MCallBack() {
-            @Override
-            public void onSuccess(Account account) {
-                showSuccessPage(account);
-            }
+        mMvpPresenter.getData(getUserInput());
 
-            @Override
-            public void onFailed() {
-                showFailedPage();
-            }
-        });
     }
 
-
-    private String getUserInput(){
+    @Override
+    public String getUserInput() {
         return mEtAccount.getText().toString();
     }
 
-
-    private void showSuccessPage (Account account){
+    @Override
+    public void showSuccessPage(Account account) {
         mTvResult.setText("User Name: " + account.getName() + " | " + "Level: "
                 + account.getLevel() );
     }
 
-
-    private void showFailedPage (){
+    @Override
+    public void showFailedPage() {
         mTvResult.setText("Failed");
     }
 }

@@ -1,4 +1,4 @@
-package com.example.user_query.normal;
+package com.example.user_query.mvc;
 
 import com.example.user_query.bean.Account;
 import com.example.user_query.callBack.MCallBack;
